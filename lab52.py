@@ -42,10 +42,11 @@ while condition:
         print("Incorrect input")
 
 for rows in range(N):
+    print("Введите", rows + 1, "строчку матрицы")
     condition = True
     while condition:
         counter = 0
-        line = list(map(int, input().split()))
+        line = input().split()
         for number in line:
             if check(number) == "error":
                 print("Incorrect input")
@@ -57,6 +58,7 @@ for rows in range(N):
                 condition = False
             else:
                 print("Длина строчки не соответствует матрице")
+    line = map(int,line)
 matrix = func(matrix, N)
 for line in matrix:
     print(line)
