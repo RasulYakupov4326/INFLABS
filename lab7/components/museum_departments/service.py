@@ -24,13 +24,15 @@ def get_all():
     return db["museum_departments"]
 
 
-def update_one_by_id(id, worker):
+def update_one_by_id(id, museum_departments):
     db = json_service.get_database()
 
     for i, elem in enumerate(db["museum_departments"]):
         if elem["id"] == id:
-            elem["name"] = worker["name"]
-            elem["contacts"] = worker["contacts"]
+            elem["title"] = museum_departments["title"]
+            elem["exhibits_id"] = museum_departments["exhibits_id"]
+            elem["workers_id"] = museum_departments["workers_id"]
+            elem["museum_departments_id"] = museum_departments["museum_departments_id"]
 
             json_service.set_database(db)
             return elem

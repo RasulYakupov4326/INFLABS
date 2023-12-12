@@ -28,7 +28,7 @@ def update_one_by_id(id, museum):
     for i, elem in enumerate(db["museum"]):
         if elem["id"] == id:
             elem["name"] = museum["name"]
-            elem["contacts"] = museum["contacts"]
+            elem["address"] = museum["address"]
 
             json_service.set_database(db)
             return elem

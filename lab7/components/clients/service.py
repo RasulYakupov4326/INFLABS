@@ -25,7 +25,7 @@ def get_one_by_id(id):
 def get_all():
     db = json_service.get_database()
 
-    return db["museum"]
+    return db["clients"]
 
 
 def update_one_by_id(id, clients):
@@ -34,7 +34,7 @@ def update_one_by_id(id, clients):
     for i, elem in enumerate(db["museum"]):
         if elem["id"] == id:
             elem["name"] = clients["name"]
-            elem["contacts"] = clients["contacts"]
+            elem["social_media"] = clients["social_media"]
 
             json_service.set_database(db)
             return elem
