@@ -1,0 +1,118 @@
+{
+  "museum": [
+    {
+      "id": 1,
+      "name": "Эрмитаж",
+      "address": "Дворцовая площадь, 2"
+  }
+  ],
+
+  "workers": [
+        {
+      "id": 1,
+      "name": "Иван Иванович",
+      "age": 30,
+      "profession": "охранник",
+      "museum_departments_id": 1,
+      "contacts": {
+        "email": "name@example.something",
+        "phone": "+7 777 777 77 77"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Ирина Ивановна",
+      "age": 30,
+      "profession": "экскурсовод",
+      "museum_departments_id": 1,
+      "contacts": {
+        "email": "name@example.something",
+        "phone": "+7 777 777 77 77"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Ирина Дмитриевич",
+      "age": 30,
+      "profession": "экскурсовод",
+      "museum_departments_id": 2,
+      "contacts": {
+        "email": "name@example.something",
+        "phone": "+7 777 777 77 77"
+      }
+    },
+    {
+      "id": 4,
+      "name": "Дмитрий Дмитриевич",
+      "age": 30,
+      "profession": "экскурсовод",
+      "museum_departments_id": 2,
+      "contacts": {
+        "email": "name@example.something",
+        "phone": "+7 777 777 77 77"
+      }
+    }
+  ],
+  "exhibits": [
+    {
+      "id": 1,
+      "designation": "возвращение блудного сына"
+    },
+    {
+      "id": 2,
+      "designation": "танец"
+    },
+    {
+      "id": 3,
+      "designation": "статуя Юпитера"
+    },
+    {
+      "id": 4,
+      "designation": "Афродита"
+    }
+  ],
+  "museum_departments": [
+    {
+      "id": 0,
+      "title": "вход",
+      "exhibits_id": [],
+      "workers_id": [],
+      "museum_departments_id": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": 1,
+      "title": "отдел редких картин",
+      "exhibits_id": [
+        1,
+        2
+      ],
+      "workers_id": [
+        1,
+        2
+      ],
+      "museum_departments_id": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": 2,
+      "title": "отдел редких статуй",
+      "exhibits_id": [
+        3,
+        4
+      ],
+      "workers_id": [
+        3,
+        4
+      ],
+      "museum_departments_id": [
+        0,
+        2
+      ]
+    }
+  ]
+}
