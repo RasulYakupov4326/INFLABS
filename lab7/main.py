@@ -2,6 +2,7 @@ import components.museum.service as museum
 import components.museum_departments.service as museum_departments
 import components.workers.service as workers
 import components.exhibits.service as exhibits
+import components.clients.service as clients
 
 
 def check(userInput, usl1, usl2):
@@ -11,7 +12,7 @@ def check(userInput, usl1, usl2):
         return False
 
 
-entities = [museum, museum_departments, workers, exhibits]
+entities = [museum, museum_departments, workers, exhibits, clients]
 
 
 def get_entity(user_type):
@@ -42,13 +43,28 @@ def get_create_multiple_data(obj):
 def get_create_data_for_dict(obj):
     res = {}
     for i in obj.keys():
-        if bool(obj[i]) and isinstance(obj[i], dict):
+        if isinstance(obj[i], dict):
             res[i] = get_create_data_for_dict(obj[i])
         elif isinstance(obj[i], list):
-            res[i] = input("Введите значение " + i + ": ").split()
+            if isinstance(obj[i][0], dict):
+                res[i] = get_create_multiple_data_for_dict(obj[i][0])
+            else:
+                res[i] = list(map(obj[i][0], input("Введите значение " + i + ": ").split()))
         else:
-            res[i] = input("Введите значение " + i + ": ")
+            res[i] = obj[i](input("Введите значение " + i + ": "))
     return res
+
+def get_create_multiple_data_for_dict(obj):
+    while True:
+        amount = input("Введите количество новых объектов: ")
+        if amount.isdigit() and int(amount) > 0:
+            amount = int(amount)
+            res = []
+            for i in range(amount):
+                res.append(get_create_data_for_dict(obj))
+            return res
+        else:
+            print("неправильный ввод")
 
 
 arguments_extractors = [[(get_create_data, "create_data")],
@@ -68,6 +84,7 @@ def get_arguments(obj, operation_index):
 
 def apply_create(obj, args):
     obj.create_one(args["create_data"])
+    return True
 
 
 def apply_info(obj, args):
@@ -121,13 +138,14 @@ while condition:
                                   "\n2) Отделы"
                                   "\n3) Работники"
                                   "\n4) Экспонаты"
-                                  "\n5) Вернутся назад"
+                                  "\n5) Клиенты"
+                                  "\n6) Вернутся назад"
                                   "\n"
                                   )
-            if check(object_number, 1, 4):
+            if check(object_number, 1, 5):
                 top = True
                 condition2 = False
-            elif check(object_number, 5, 5):
+            elif check(object_number, 6, 6):
                 condition2 = False
             else:
                 print("Неверный ввод")
@@ -137,17 +155,22 @@ while condition:
         print("Невверный ввод")
 
     if tip and top:
-        operation_index = int(operation_index)
-        entity_index = int(object_number)
+        try:
+            operation_index = int(operation_index)
+            entity_index = int(object_number)
 
-        entity = get_entity(entity_index)
-        arguments = get_arguments(entity, operation_index)
-        operation = get_operation(operation_index)
+            entity = get_entity(entity_index)
+            arguments = get_arguments(entity, operation_index)
+            operation = get_operation(operation_index)
 
-        print(
-            apply_operation(
-                entity,
-                operation,
-                arguments
+            print(
+                apply_operation(
+                    entity,
+                    operation,
+                    arguments
+                )
             )
-        )
+        except Exception as e:
+            print(e)
+            print("Произошла ошибка при вводе данных")
+

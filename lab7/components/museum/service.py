@@ -1,8 +1,8 @@
 import utils.json_service as json_service
 
 form = {
-    "name": {},
-    "address": {}
+    "name": str,
+    "address": str
 }
 
 

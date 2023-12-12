@@ -1,13 +1,13 @@
 import utils.json_service as json_service
 
 form = {
-    "name": {},
-    "age": {},
-    "profession": {},
-    "museum_departments_id": {},
+    "name": str,
+    "age": str,
+    "profession": str,
+    "museum_departments_id": int,
     "contacts": {
-        "email": {},
-        "phone": {}
+        "email": str,
+        "phone": str
     }
 }
 

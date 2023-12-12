@@ -1,17 +1,21 @@
 import utils.json_service as json_service
 
 form = {
-    "title": str,
-    "exhibits_id": [int],
-    "workers_id": [int],
-    "museum_departments_id": [int]
+    "name": str,
+    "social_media": [
+        {
+            "url": str,
+            "nickname": str,
+            "active": bool
+        }
+    ]
 }
 
 
 def get_one_by_id(id):
     db = json_service.get_database()
 
-    for elem in db["museum_departments"]:
+    for elem in db["clients"]:
         if elem["id"] == id:
             return elem
 
@@ -21,16 +25,16 @@ def get_one_by_id(id):
 def get_all():
     db = json_service.get_database()
 
-    return db["museum_departments"]
+    return db["museum"]
 
 
-def update_one_by_id(id, worker):
+def update_one_by_id(id, clients):
     db = json_service.get_database()
 
-    for i, elem in enumerate(db["museum_departments"]):
+    for i, elem in enumerate(db["museum"]):
         if elem["id"] == id:
-            elem["name"] = worker["name"]
-            elem["contacts"] = worker["contacts"]
+            elem["name"] = clients["name"]
+            elem["contacts"] = clients["contacts"]
 
             json_service.set_database(db)
             return elem
@@ -41,9 +45,9 @@ def update_one_by_id(id, worker):
 def delete_one_by_id(id):
     db = json_service.get_database()
 
-    for i, elem in enumerate(db["museum_departments"]):
+    for i, elem in enumerate(db["clients"]):
         if elem["id"] == id:
-            candidate = db["museum_departments"].pop(i)
+            candidate = db["clients"].pop(i)
             json_service.set_database(db)
 
             return candidate
@@ -51,10 +55,10 @@ def delete_one_by_id(id):
     return {"message": f"Элемент с {id} не найден"}
 
 
-def create_one(museum_departments):
+def create_one(clients):
     db = json_service.get_database()
 
-    last_museum_departments_id = get_all()[-1]["id"]
-    db["museum_departments"].append({"id": last_museum_departments_id + 1, **museum_departments})
+    last_clients_id = get_all()[-1]["id"]
+    db["clients"].append({"id": last_clients_id + 1, **clients})
 
     json_service.set_database(db)

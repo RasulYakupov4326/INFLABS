@@ -1,7 +1,7 @@
 import utils.json_service as json_service
 
 form = {
-    "designation": {}
+    "designation": str
 }
 
 
