@@ -33,8 +33,7 @@ def get_create_multiple_data(obj):
             amount = int(amount)
             res = []
             for i in range(amount):
-                res.append([])
-                res[i] = get_create_data(obj)
+                res.append(get_create_data(obj))
             return res
         else:
             print("неправильный ввод")
@@ -46,7 +45,7 @@ def get_create_data_for_dict(obj):
         if bool(obj[i]) and isinstance(obj[i], dict):
             res[i] = get_create_data_for_dict(obj[i])
         elif isinstance(obj[i], list):
-            res[i] = input("Введите значение " + i + ":").split()
+            res[i] = input("Введите значение " + i + ": ").split()
         else:
             res[i] = input("Введите значение " + i + ": ")
     return res
@@ -86,7 +85,7 @@ def apply_update(obj, args):
 def apply_multiple_create(obj, args):
     for blank in args["create_data"]:
         obj.create_one(blank)
-    return "добавление успешно"
+    return True
 
 operations = [apply_create, apply_info, apply_update, apply_delete, apply_multiple_create]
 
@@ -152,31 +151,3 @@ while condition:
                 arguments
             )
         )
-
-
-general_form = [
-    {
-        "name": {},
-        "address": {}
-    },
-    {
-        "title": {},
-        "exhibits_id": {},
-        "workers_id": {},
-        "museum_departments_id": {}
-    },
-    {
-        "name": {},
-        "age": {},
-        "profession": {},
-        "museum_departments_id": {},
-        "contacts": {
-            "email": {},
-            "phone": {}
-        }
-    },
-    {
-        "designation": {}
-    }
-
-]

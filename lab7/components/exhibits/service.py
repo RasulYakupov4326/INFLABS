@@ -1,10 +1,14 @@
 import utils.json_service as json_service
 
+form = {
+    "designation": {}
+}
+
 
 def get_one_by_id(id):
     db = json_service.get_database()
 
-    for elem in db["workers"]:
+    for elem in db["exhibits"]:
         if elem["id"] == id:
             return elem
 
@@ -14,17 +18,16 @@ def get_one_by_id(id):
 def get_all():
     db = json_service.get_database()
 
-    return db["workers"]
+    return db["exhibits"]
 
 
-def update_one_by_id(id, worker):
+def update_one_by_id(id, exhibits):
     db = json_service.get_database()
 
-    for i, elem in enumerate(db["workers"]):
+    for i, elem in enumerate(db["exhibits"]):
         if elem["id"] == id:
-
-            elem["name"] = worker["name"]
-            elem["contacts"] = worker["contacts"]
+            elem["name"] = exhibits["name"]
+            elem["contacts"] = exhibits["contacts"]
 
             json_service.set_database(db)
             return elem
@@ -35,10 +38,9 @@ def update_one_by_id(id, worker):
 def delete_one_by_id(id):
     db = json_service.get_database()
 
-    for i, elem in enumerate(db["workers"]):
+    for i, elem in enumerate(db["exhibits"]):
         if elem["id"] == id:
-
-            candidate = db["workers"].pop(i)
+            candidate = db["exhibits"].pop(i)
             json_service.set_database(db)
 
             return candidate
@@ -46,10 +48,10 @@ def delete_one_by_id(id):
     return {"message": f"Элемент с {id} не найден"}
 
 
-def create_one(worker):
+def create_one(exhibits):
     db = json_service.get_database()
 
-    last_worker_id = get_all()[-1]["id"]
-    db["workers"].append({"id": last_worker_id + 1, **worker})
+    last_exhibits_id = get_all()[-1]["id"]
+    db["exhibits"].append({"id": last_exhibits_id + 1, **exhibits})
 
     json_service.set_database(db)

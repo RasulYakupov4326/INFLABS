@@ -1,5 +1,10 @@
 import utils.json_service as json_service
 
+form = {
+    "name": {},
+    "address": {}
+}
+
 
 def get_one_by_id(id):
     db = json_service.get_database()
@@ -22,7 +27,6 @@ def update_one_by_id(id, museum):
 
     for i, elem in enumerate(db["museum"]):
         if elem["id"] == id:
-
             elem["name"] = museum["name"]
             elem["contacts"] = museum["contacts"]
 
@@ -35,10 +39,9 @@ def update_one_by_id(id, museum):
 def delete_one_by_id(id):
     db = json_service.get_database()
 
-    for i, elem in enumerate(db["workers"]):
+    for i, elem in enumerate(db["museum"]):
         if elem["id"] == id:
-
-            candidate = db["workers"].pop(i)
+            candidate = db["museum"].pop(i)
             json_service.set_database(db)
 
             return candidate
@@ -50,6 +53,6 @@ def create_one(museum):
     db = json_service.get_database()
 
     last_museum_id = get_all()[-1]["id"]
-    db["workers"].append({"id": last_museum_id + 1, **museum})
+    db["museum"].append({"id": last_museum_id + 1, **museum})
 
     json_service.set_database(db)
